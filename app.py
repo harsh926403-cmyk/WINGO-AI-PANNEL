@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.express as px
 
 st.set_page_config(page_title="Wingo AI Panel", layout="wide")
 
@@ -65,8 +64,9 @@ c3.metric("Big Ratio", f"{(df['Size']=='Big').mean()*100:.1f}%")
 
 st.write("---")
 
-fig = px.bar(df["Number"].value_counts().reset_index(), x="Number", y="count", title="Number Frequency")
-st.plotly_chart(fig, use_container_width=True)
+st.write("### Number Frequency Chart")
+counts = df["Number"].value_counts().sort_index()
+st.bar_chart(counts)
 
 st.write("### Recent History")
 st.dataframe(df.tail(10).iloc[::-1], use_container_width=True, hide_index=True)
